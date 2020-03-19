@@ -59,7 +59,7 @@
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.9.1",
     "@types/power-assert": "^1.5.3",
-    "coveralls": "^3.0.9",
+    "coveralls": "^3.0.10",
     "cross-env": "^7.0.2",
     "mocha": "^7.1.0",
     "nyc": "^15.0.0",
