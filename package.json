@@ -8,7 +8,7 @@
   "main": "dist/core/",
   "typings": "dist/core/index.d.ts",
   "scripts": {
-    "clean": "rimraf dist/ build/ {src,test}/**/*.{js,js.map}",
+    "clean": "rimraf dist/ build/ {src,test}/**/*.{js,js.map} *.tsbuildinfo",
     "build": "tsc -p ./tsconfig-build.json",
     "prepublishOnly": "npm run build",
     "lint": "tslint --project ./tsconfig.json",
@@ -52,8 +52,9 @@
     "tslib": "^1.11.1"
   },
   "devDependencies": {
-    "@dtsgenerator/replace-namespace": "^1.0.0",
-    "@dtsgenerator/single-quote": "^1.1.1",
+    "@dtsgenerator/do-nothing": "^2.0.0",
+    "@dtsgenerator/replace-namespace": "^1.1.0",
+    "@dtsgenerator/single-quote": "^1.2.0",
     "@types/debug": "^4.1.5",
     "@types/glob": "^7.1.1",
     "@types/js-yaml": "^3.12.2",
@@ -63,11 +64,11 @@
     "@types/power-assert": "^1.5.3",
     "coveralls": "^3.0.9",
     "cross-env": "^7.0.2",
-    "mocha": "^7.1.0",
+    "mocha": "^7.1.1",
     "nyc": "^15.0.0",
     "power-assert": "^1.6.1",
     "rimraf": "^3.0.2",
-    "ts-node": "^8.6.2",
+    "ts-node": "^8.8.1",
     "tslint": "^6.1.0",
     "typescript": "^3.8.3"
   }
