@@ -57,7 +57,9 @@
     "@types/mkdirp": "^1.0.0",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.9.1",
-    "@types/power-assert": "^1.5.3",
+    "@types/power-assert": "^1.5.3"
+  },
+  "devDependencies": {
     "coveralls": "^3.0.9",
     "cross-env": "^7.0.2",
     "mocha": "^7.1.0",
@@ -67,7 +69,5 @@
     "ts-node": "^8.6.2",
     "tslint": "^6.1.0",
     "typescript": "^3.8.3"
-  },
-  "devDependencies": {
   }
 }
