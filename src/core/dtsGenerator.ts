@@ -37,7 +37,7 @@ export default class DtsGenerator {
                 delete value[typeMarker];
             }
             if (typeof value === 'object' && Object.keys(value).length > 0) {
-                if ([ 'Definitions', 'Paths' ].includes(key)) {
+                if (key === 'Definitions') {
                     this.walk(value);
                     return;
                 }
