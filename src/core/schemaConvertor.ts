@@ -68,7 +68,7 @@ export default class SchemaConvertor {
     public startNest(name: string): void {
         const processor = this.processor;
         if (processor.indentLevel === 0) {
-            processor.output('declare ');
+            processor.output('export ');
         }
         processor.output('namespace ').outputType(name, true).outputLine(' {');
         processor.increaseIndent();
