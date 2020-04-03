@@ -39,11 +39,11 @@ export default class DtsGenerator {
             if (typeof value === 'object' && Object.keys(value).length > 0) {
                 if (key === 'Definitions') {
                     this.walk(value);
-                    return;
+                } else {
+                    this.convertor.startNest(key);
+                    this.walk(value);
+                    this.convertor.endNest();
                 }
-                this.convertor.startNest(key);
-                this.walk(value);
-                this.convertor.endNest();
             }
         }
     }
