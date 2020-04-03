@@ -70,7 +70,7 @@ export default class SchemaConvertor {
         if (processor.indentLevel === 0) {
             processor.output('export ');
         }
-        processor.output('namespace ').outputType(name, true).outputLine(' {');
+        processor.output('interface ').outputType(name, true).outputLine(' {');
         processor.increaseIndent();
     }
 

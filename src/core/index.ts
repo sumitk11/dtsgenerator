@@ -13,6 +13,7 @@ export interface Options extends Partial<WriteProcessorOptions> {
     inputUrls?: string[];
     typeNameConvertor?: TypeNameConvertor;
     namespaceName?: string;
+    clientName: string;
 }
 
 export default async function dtsGenerator(options: Options): Promise<string> {
@@ -30,5 +31,5 @@ export default async function dtsGenerator(options: Options): Promise<string> {
     }
 
     const generator = new DtsGenerator(resolver, convertor);
-    return await generator.generate();
+    return await generator.generate(clientName);
 }

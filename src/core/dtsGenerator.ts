@@ -14,19 +14,19 @@ export default class DtsGenerator {
 
     constructor(private resolver: ReferenceResolver, private convertor: SchemaConvertor) { }
 
-    public async generate(): Promise<string> {
+    public async generate(clientName: string): Promise<string> {
         debug('generate type definition files.');
         await this.resolver.resolve();
 
         const map = this.convertor.buildSchemaMergedMap(this.resolver.getAllRegisteredSchema(), typeMarker);
         this.convertor.start();
-        this.walk(map);
+        this.walk(map, clientName);
         const result = this.convertor.end();
 
         return result;
     }
 
-    private walk(map: any): void {
+    private walk(map: any, clientName: string): void {
         const keys = Object.keys(map).sort();
         for (const key of keys) {
             const value = map[key];
@@ -38,10 +38,10 @@ export default class DtsGenerator {
             }
             if (typeof value === 'object' && Object.keys(value).length > 0) {
                 if (key === 'Definitions') {
-                    this.walk(value);
-                } else {
-                    this.convertor.startNest(key);
-                    this.walk(value);
+                    this.walk(value, clientName);
+                } else if (key === 'Paths') {
+                    this.convertor.startNest(clientName);
+                    this.walk(value, clientName);
                     this.convertor.endNest();
                 }
             }
