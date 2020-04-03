@@ -85,7 +85,7 @@ export default class SchemaConvertor {
     public startInterfaceNest(id: SchemaId): void {
         const processor = this.processor;
         if (processor.indentLevel === 0 && (this.ns == null || this.ns.length > 0)) {
-            processor.output('declare ');
+            processor.output('export ');
         } else {
             processor.output('export ');
         }
