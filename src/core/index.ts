@@ -31,5 +31,5 @@ export default async function dtsGenerator(options: Options): Promise<string> {
     }
 
     const generator = new DtsGenerator(resolver, convertor);
-    return await generator.generate(clientName);
+    return await generator.generate(options.clientName);
 }
