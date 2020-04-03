@@ -80,6 +80,12 @@ export default class SchemaConvertor {
         processor.outputLine('}');
     }
 
+    public addFunctionDefinition(apiName: string, requestRefName: string, responseRefName: string): void {
+        const processor = this.processor;
+        processor.output(`${apiName}(input: ${requestRefName}): Promise<${responseRefName}>;`);
+        processor.outputLine();
+    }
+
     /// acutal type convert methods
 
     public startInterfaceNest(id: SchemaId): void {

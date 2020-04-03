@@ -43,6 +43,10 @@ export default class DtsGenerator {
                     this.convertor.startNest(clientName);
                     this.walk(value, clientName);
                     this.convertor.endNest();
+                } else {
+                    this.convertor.addFunctionDefinition(key,
+                        value.Post.Responses.Body[typeMarker].content.$ref.split(['/']).slice(-1)[0],
+                        value.Post.Responses[200][typeMarker].content.$ref.split(['/']).slice(-1)[0])
                 }
             }
         }
