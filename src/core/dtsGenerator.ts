@@ -14,7 +14,7 @@ export default class DtsGenerator {
 
     constructor(private resolver: ReferenceResolver, private convertor: SchemaConvertor) { }
 
-    public async generate(clientName: string): Promise<string> {
+    public async generate(clientName?: string): Promise<string> {
         debug('generate type definition files.');
         await this.resolver.resolve();
 
@@ -26,7 +26,7 @@ export default class DtsGenerator {
         return result;
     }
 
-    private walk(map: any, clientName: string): void {
+    private walk(map: any, clientName = 'clientName'): void {
         const keys = Object.keys(map).sort();
         for (const key of keys) {
             const value = map[key];
