@@ -4,6 +4,7 @@ import { getSubSchema, JsonSchema, NormalizedSchema, Schema } from './jsonSchema
 import ReferenceResolver from './referenceResolver';
 import SchemaConvertor from './schemaConvertor';
 import * as utils from './utils';
+import * as _ from 'lodash';
 
 const debug = Debug('dtsgen');
 const typeMarker = Symbol();
@@ -13,6 +14,8 @@ export default class DtsGenerator {
     private currentSchema!: NormalizedSchema;
 
     constructor(private resolver: ReferenceResolver, private convertor: SchemaConvertor) { }
+
+    private nestedMap: {[key: string]: object} = {};
 
     public async generate(clientName?: string): Promise<string> {
         debug('generate type definition files.');
@@ -42,13 +45,31 @@ export default class DtsGenerator {
                 } else if (key === 'Paths') {
                     this.convertor.startNest(clientName);
                     this.walk(value, clientName);
+                    this.convertor.outputNestedFunctions(this.nestedMap);
                     this.convertor.endNest();
                 } else {
-                    this.convertor.addFunctionDefinition(key,
-                        value.Post.Parameters.Body[typeMarker].content.$ref.split(['/']).slice(-1)[0],
-                        value.Post.Responses[200][typeMarker].content.$ref.split(['/']).slice(-1)[0])
+                    const requestRef = value.Post.Parameters.Body[typeMarker].content.$ref.split(['/']).slice(-1)[0];
+                    const responseRef = value.Post.Responses[200][typeMarker].content.$ref.split(['/']).slice(-1)[0];
+                    if (key.includes('_')){
+                        const paths = key.split('_');
+                        _.set(this.nestedMap, `${lowerFirstCase(paths[0])}.${paths[1]}`,
+                            this.convertor.getFunctionDeclarationObj(lowerFirstCase(paths[1]), capitalizeFirstLetter(requestRef),
+                                capitalizeFirstLetter(responseRef)))
+
+                    } else {
+                        this.convertor.addFunctionDefinition(lowerFirstCase(key), capitalizeFirstLetter(requestRef),
+                            capitalizeFirstLetter(responseRef));
+                    }
                 }
             }
+        }
+
+        function capitalizeFirstLetter(str: string) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function lowerFirstCase(str: string) {
+            return str.charAt(0).toLowerCase() + str.slice(1);
         }
     }
 

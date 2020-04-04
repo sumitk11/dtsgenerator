@@ -151,9 +151,9 @@ export function searchAllSubSchema(schema: Schema, onFoundSchema: (subSchema: Sc
             return '#/' + paths.join('/');
         }
         function convertKeyToTypeName(key: string): string {
-            key = key.replace(/\/(.)/g, (_match, p1) => {
-                return p1.toUpperCase();
-            });
+            // key = key.replace(/\/(.)/g, (_match, p1) => {
+            //     return p1.toUpperCase();
+            // });
             return key.replace(/}/g, '').replace(/{/, '$')
                     .replace(/^\//, '').replace(/[^0-9A-Za-z_$]+/g, '_');
         }
