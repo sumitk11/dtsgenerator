@@ -30,7 +30,7 @@ function toTypeName(str: string): string {
     if (!str) {
         return str;
     }
-    const result = str.trim().split('$').map((s) => s.replace(/^[A-Za-z0-9]/g, (_,m) => {
+    const result = str.trim().split('$').map((s) => s.replace(/(^[A-Za-z0-9])/g, (_, m) => {
         return m.toUpperCase();
     })).join('$');
     return result;
